@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+<title>{{ configuration['pagetitle'] }} - Stream Overview</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.default.css') }}">
+</head>
+<body>
+<header>
+	<h1>{{ configuration["pagetitle"] }}</h1>
+	<h2>{{ configuration["subtitle"] }}</h2>
+</header>
+<main>
+{% if items == [] %}
+  <p style="margin-top: 20px; margin-bottom: 150px;">
+    <span style="color: #888; font-size: 14pt;">There are currently no streams running</span>
+  </p>
+{% endif %}
+{% for item in items %}
+<article>
+  <h1>{{ item }}</h1>
+  <table>
+    <tbody>
+      <tr>
+        <th>Protocol</th>
+        <th>URL</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>RTMP</td>
+        <td><em class="url">rtmp://{{ configuration["rtmp_base"] }}/live/{{ item }}</em></td>
+        <td class="btn"><a href="rtmp://{{ configuration["rtmp_base"] }}/live/{{ item }}" class="btn btn-green">&#9654;<br/>RTMP</a></td>
+      </tr>
+      <tr>
+        <td>HLS</td>
+	<td><em class="url">{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/video/hls/{{ item }}.m3u8</em></td>
+	<td class="btn"><a href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/video/hls/{{ item }}.m3u8" class="btn btn-green">&#9654;<br/>HLS</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="{{ url_for('show_player', streamname=item) }}" 
+    class="btn-large btn-green">
+      &#9655; Web Player
+    </a>
+</article>
+{% endfor %}
+</main>
+<footer>
+{{ configuration["footer"] }}
+</footer>
+</body>
+</html>

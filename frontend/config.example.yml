@@ -1,0 +1,20 @@
+# This is the title and Subtitle displayed on the Head of the Page
+pagetitle: Zomstream
+subtitle: v0.2
+# the footer
+footer: "&copy; 2018 by the zom.bi Team"
+# the ip or hostname used to generate rtmp URLs
+rtmp_base: stream.zom.bi
+# this is the base url used to generate internal links
+base_url: 127.0.0.1:5001
+
+# the url to the nginx servers status page.
+# this is used for discovering the running streams
+# if you are running the docker-compose setup you don't need to change that.
+stat_url : http://nginx-rtmp:8080/stat
+# web protocol - used for generating hls and internal links.
+# change this to https if you are using https for example via traefik in front of this setup
+web_proto: http
+# if you want to add another template you can place it in the "templates" folder
+# leave it at "default" to use the included default template
+template_folder: default
