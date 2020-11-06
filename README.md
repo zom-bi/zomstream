@@ -9,7 +9,7 @@ This repository does contain all needed components for a "streaming server in a 
 
 ## Credits
  * We are using the flv.js library (https://github.com/bilibili/flv.js) for our webplayer
- * The included Streaming Server is based on nginx (https://nginx.org) with the nginx-http-flv-module (https://github.com/winshining/nginx-http-flv-modulee)
+ * The included Streaming Server is based on nginx (https://nginx.org) with the nginx-http-flv-module (https://github.com/winshining/nginx-http-flv-module)
 
 ## Components
 Zomstream is a multiple container setup which should be setup using docker-compose. It consists of the following components.
