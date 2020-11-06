@@ -32,13 +32,13 @@
         <td class="btn"><a href="rtmp://{{ configuration["rtmp_base"] }}/live/{{ item }}" class="btn btn-green">&#9654;<br/>RTMP</a></td>
       </tr>
       <tr>
-        <td>HLS</td>
-	<td><em class="url">{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/video/hls/{{ item }}.m3u8</em></td>
-	<td class="btn"><a href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/video/hls/{{ item }}.m3u8" class="btn btn-green">&#9654;<br/>HLS</a></td>
+        <td>HTTP-FLV</td>
+	<td><em class="url">{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app=live&stream={{ item }}</em></td>
+	<td class="btn"><a href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app=live&stream={{ item }}" class="btn btn-green">&#9654;<br/>HTTP-FLV</a></td>
       </tr>
     </tbody>
   </table>
-  <a href="{{ url_for('show_player', streamname=item) }}" 
+  <a href="{{ url_for('show_player', streamname=item, appname='live') }}"
     class="btn-large btn-green">
       &#9655; Web Player
     </a>

@@ -1,3 +1,3 @@
 docker-compose.yml
-frontend/config.yml
-frontend/__pycache__
+config/frontend/config.yml
+frontend/app/__pycache__

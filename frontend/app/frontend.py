@@ -54,12 +54,13 @@ def start():
     )
     return page
 
-@frontend.route("/player/<streamname>")
-def show_player(streamname):
+@frontend.route("/player/<appname>/<streamname>")
+def show_player(appname, streamname):
     playerTemplate = '%s/player.html.j2' % configuration['template_folder']
     page = flask.render_template(
         playerTemplate, 
-        name=streamname,
+        streamname=streamname,
+        appname=appname,
         hls_url='%s://%s/video/hls/%s.m3u8' % (
             configuration['web_proto'], 
             configuration['base_url'], 

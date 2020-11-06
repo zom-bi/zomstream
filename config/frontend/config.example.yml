@@ -1,6 +1,6 @@
 # This is the title and Subtitle displayed on the Head of the Page
 pagetitle: Zomstream
-subtitle: v0.2
+subtitle: v0.3
 # the footer
 footer: "&copy; 2018 by the zom.bi Team"
 # the ip or hostname used to generate rtmp URLs
