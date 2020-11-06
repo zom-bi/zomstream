@@ -1,29 +1,21 @@
 version: '3'
 
-networks:
+# networks:
 # configuration for external traefik network
 #  web:
 #    external:
 #       name: proxy_web
-  internal:
-      ipam:
-          driver: default
-          config:
-              - subnet: 10.23.42.40/29
 
 services:
   auth: # PSK Authentication Service
-    build: ./docker-python/.
+    image: python:3
+    user: nobody
     command: python /code/auth.py
     volumes:
       - "./auth:/code"
     # set the PSK Password for the Auth Daemon here
     environment:
       - password=ex4mple_p4ssw0rd!
-    networks:
-        internal:
-            ipv4_address: 10.23.42.42
-
 
   nginx-rtmp: # nginx rtmp server
     build: ./docker-nginx-rtmp/.
@@ -31,11 +23,12 @@ services:
       - "1935:1935"
     # if there is no proxy in front of this set your frontend port here
     # if you are using traefik instead set the configuration labels below
-    # - "8080:8080"
+      - "8080:8080"
     volumes:
-      - "./config/nginx-rtmp:/usr/local/nginx/conf"
+      - "./config/nginx-rtmp:/usr/local/nginx/conf:ro"
     depends_on:
       - auth
+      - frontend
     # these labels are for automatic configuration of traefik
     # labels:
     #  - "traefik.enable=true"
@@ -43,18 +36,10 @@ services:
     #  - "traefik.frontend.rule=Host: stream.zom.bi"
     #  - "traefik.docker.network=proxy_web"
     #  - "traefik.port=8080"
-    networks:
-    # enable the web network for traefik
-    #    web:
-        internal:
-            ipv4_address: 10.23.42.43
-
 
   frontend: # container for python frontend
-    build: ./docker-python/.
+    build: frontend/.
     command: uwsgi uwsgi.ini
     volumes:
-      - "./frontend:/code"
-    networks:
-        internal:
-            ipv4_address: 10.23.42.44
+      - "./config/frontend/config.yml:/code/config.yml:ro"
+      - "./config/frontend/uwsgi.ini:/code/uwsgi.ini:ro"
