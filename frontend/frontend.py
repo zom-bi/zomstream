@@ -11,10 +11,6 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-# for populating stream list in background
-import threading
-import time
-
 # load configuration from config.yml file
 if pathlib.Path("config.yml").is_file():
     stream = open('config.yml', 'r')
@@ -47,20 +43,10 @@ def getStreamNames(url):
 streamList = []
 frontend = flask.Flask(__name__)
 
-@frontend.before_first_request
-def populate_streamlist():
-    def streamlist_loop():
-        global streamList
-        while True:
-            streamList = getStreamNames(configuration['stat_url'])
-            frontend.logger.info('updated streamlist: ' + str(streamList))
-            time.sleep(10)
-    thread = threading.Thread(target=streamlist_loop)
-    thread.start()
-
 @frontend.route("/")
 def start():
     mainTemplate = '%s/main.html.j2' % configuration['template_folder']
+    streamList = getStreamNames(configuration['stat_url'])
     page = flask.render_template(
         mainTemplate,
         items=streamList,
