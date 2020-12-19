@@ -18,7 +18,7 @@
 {% endif %}
 {% for item in items %}
 <article>
-  <h1>{{ item }}</h1>
+  <h1>{{ item[1] }}</h1>
   <table>
     <tbody>
       <tr>
@@ -28,17 +28,17 @@
       </tr>
       <tr>
         <td>RTMP</td>
-        <td><em class="url">rtmp://{{ configuration["rtmp_base"] }}/live/{{ item }}</em></td>
-        <td class="btn"><a href="rtmp://{{ configuration["rtmp_base"] }}/live/{{ item }}" class="btn btn-green">&#9654;<br/>RTMP</a></td>
+        <td><em class="url">rtmp://{{ configuration["rtmp_base"] }}/{{ item[0] }}/{{ item[1] }}</em></td>
+        <td class="btn"><a href="rtmp://{{ configuration["rtmp_base"] }}/{{ item[0] }}/{{ item[1] }}" class="btn btn-green">&#9654;<br/>RTMP</a></td>
       </tr>
       <tr>
         <td>HTTP-FLV</td>
-	<td><em class="url">{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app=live&stream={{ item }}</em></td>
-	<td class="btn"><a href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app=live&stream={{ item }}" class="btn btn-green">&#9654;<br/>HTTP-FLV</a></td>
+	<td><em class="url">{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ item[0] }}&stream={{ item[1] }}</em></td>
+	<td class="btn"><a href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ item[0] }}&stream={{ item[1] }}" class="btn btn-green">&#9654;<br/>HTTP-FLV</a></td>
       </tr>
     </tbody>
   </table>
-  <a href="{{ url_for('show_player', streamname=item, appname='live') }}"
+  <a href="{{ url_for('show_player', streamname=item[1], appname=item[0]) }}"
     class="btn-large btn-green">
       &#9655; Web Player
     </a>
