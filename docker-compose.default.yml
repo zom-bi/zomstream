@@ -26,6 +26,8 @@ services:
       - "8080:8080"
     volumes:
       - "./config/nginx-rtmp:/usr/local/nginx/conf:ro"
+      - "./rec:/video/rec"
+      - "./recunlisted:/video/recunlisted"
     depends_on:
       - auth
       - frontend

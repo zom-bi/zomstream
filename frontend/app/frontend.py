@@ -28,16 +28,17 @@ def getStreamNames(url):
     # parse the xml / walk the tree
     tree = etree.fromstring(content)
     server = tree.find('server')
-    application = server.find('application')
-    appname = application.find('name')
-    if appname.text == "live":
-        live = application.find('live')
-        streams = live.findall('stream')
-        for stream in streams:
-            name = stream.find('name')
-            rate = stream.find('bw_video')
-            if rate.text != "0":
-                streamnames.append(name.text)
+    applications = server.findall('application')
+    for application in applications:
+        appname = application.find('name')
+        if appname.text == "live" or appname.text == "rec":
+            streams = application.find('live').findall('stream')
+            for stream in streams:
+                name = stream.find('name')
+                rate = stream.find('bw_video')
+                if rate.text != "0":
+                    streamnames.append( [appname.text, name.text] )
+
     return streamnames
 
 streamList = []
