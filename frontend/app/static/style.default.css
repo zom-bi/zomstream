@@ -174,3 +174,49 @@ video#player {
 	max-height: calc(100vh - 150px);
 	background-color: #000;
 }
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #202020;
+        color: #999999;
+    }
+    header {
+        background: #444444;
+        color: #999999;
+    }
+    header a {
+        color: #e0e0e0;
+    }
+    header h2 {
+        color: #777;
+    }
+    footer {
+        color: #999;
+    }
+    article {
+        border: 1px solid #888;
+        box-shadow: 0px 0px 5px rgba(150, 150, 150, .5);
+    }
+    article h1 {
+        color: #888;
+        background: #121212;
+    }
+    article table th {
+        border-bottom: 1px solid #666;
+    }
+    article table td {
+    	border-bottom: 1px solid #333;
+    }
+    article table td em.url {
+        color: #eee;
+        background: #121212;
+    }
+    div#videocontainer {
+        box-shadow: 0px 0px 5px rgba(150, 150, 150, .5);
+    }
+    div#videocontainer h1 {
+        color: #888;
+        background: #121212;
+    }
+}
