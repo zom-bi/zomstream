@@ -23,7 +23,7 @@ this does run the actual streaming, receives rtmp streams from OBS / ffmpeg etc.
 this is a simple PSK based authentication module to provide authentication for source connections.
 
 ### frontend
-this components provides the visible website containing an overview of the running streams, rtmp links for external players and a web based video player to watch the livestreams.
+this components provides the visible website containing an overview of the running streams, a REST API,  rtmp links for external players and a web based video player to watch the livestreams.
 
 ## How to use this
 We tested this with OBS and ffmpeg but any steaming source supporting rtmp should work just fine.
