@@ -15,6 +15,7 @@ def construct_response(r):
     r.append({"version":api_version})
     return flask.jsonify(r) 
 
+
 @api.route("/api/stream/", methods = ['GET'])
 @api.route("/api/streams/", methods = ['GET'])
 def api_list_streams():
