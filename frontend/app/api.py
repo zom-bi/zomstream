@@ -8,7 +8,7 @@ api = flask.Blueprint('api', __name__)
 zomstream = Zomstream()
 
 def construct_response(r):
-    # Expecting a JSON-seriazable object as an argument
+    # Expecting a JSON-serializable object as an argument
     # Returning a JSON string with the API response
 
     # Add Version String
@@ -25,4 +25,3 @@ def api_stream(app_name, stream_name):
     # Filter for streams with 'name' == stream_name
     stream = list(filter(lambda stream: stream['name'] == stream_name, zomstream.getStreams()))
     return construct_response(stream)
-
