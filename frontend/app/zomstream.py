@@ -12,6 +12,7 @@ class Stream:
         self.streamType = streamType
         self.app = app
 
+
 class Zomstream:
     def __init__(self):
         # load configuration from config.yml file
