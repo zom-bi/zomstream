@@ -43,6 +43,8 @@ class Zomstream:
                         self.streamnames.append( [appname.text, name.text] )
     
         return self.streamnames
+        
+        
     def getStreams(self):
         streams = []
         for streamName in self.getStreamNames():
