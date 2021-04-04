@@ -28,10 +28,6 @@ def show_player(appname, streamname):
         playerTemplate, 
         streamname=streamname,
         appname=appname,
-        hls_url='%s://%s/video/hls/%s.m3u8' % (
-            zomstream.configuration['web_proto'], 
-            zomstream.configuration['base_url'], 
-            streamname),
         configuration=zomstream.configuration
         )
     return page
