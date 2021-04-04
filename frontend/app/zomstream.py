@@ -4,6 +4,7 @@ import sys
 import yaml
 import urllib
 
+
 class Stream:
     def __init__(self, url, name, streamType, app):
         self.url = url
