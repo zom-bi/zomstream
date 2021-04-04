@@ -13,6 +13,10 @@ class ZomstreamTests(TaskSet):
         self.client.get("/static/style.default.css")
 
     @task
+    def api_list(self):
+        self.client.get("/api/streams/")
+
+    @task
     def videoplayer(self):
         self.client.get("/player/bsod")
 
