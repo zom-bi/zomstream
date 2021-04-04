@@ -21,6 +21,7 @@ def construct_response(r):
 def api_list_streams():
     return construct_response(zomstream.getStreams())
 
+
 @api.route("/api/stream/<app_name>/<stream_name>/", methods = ['GET'])
 def api_stream(app_name, stream_name):
     # Filter for streams with 'name' == stream_name
