@@ -8,7 +8,7 @@ Here's an example query and the expected result:
 
 `$ curl http://localhost:8080/api/v0.2/streams/`
 Response example:
-```
+```json
 {
 "streams":
         [
