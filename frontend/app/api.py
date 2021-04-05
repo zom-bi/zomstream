@@ -7,13 +7,14 @@ api_version = "0.1"
 api = flask.Blueprint('api', __name__)
 zomstream = Zomstream()
 
-def construct_response(r):
-    # Expecting a JSON-serializable object as an argument
+def construct_response(streams):
+    # Expecting a JSON-serializable list as an argument
     # Returning a JSON string with the API response
 
     # Add Version String
-    r.append({"version":api_version})
-    return flask.jsonify(r) 
+    r = {"version":api_version,
+         "streams":streams}
+    return flask.jsonify(r)
 
 
 @api.route("/api/stream/", methods = ['GET'])
