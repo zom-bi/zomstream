@@ -6,11 +6,10 @@ import urllib
 
 
 class Stream:
-    def __init__(self, url, name, streamType, app):
-        self.url = url
-        self.name = name
-        self.streamType = streamType
-        self.app = app
+    def __init__(self, app, name, urls):
+        self.name = name  # String
+        self.app = app    # String
+        self.urls = urls  # List of Dictionaries with the keys url and type
 
 
 class Zomstream:
@@ -24,6 +23,7 @@ class Zomstream:
             print('missing configuration.')
             sys.exit(1)
         self.streamnames = []
+
     def getStreamNames(self):
         self.streamnames = []
         # get data from the streaming server
@@ -49,11 +49,28 @@ class Zomstream:
     def getStreams(self):
         streams = []
         for streamName in self.getStreamNames():
-            stream_url = '%s://%s/flv?app=%s&stream=%s' % (
-                self.configuration['web_proto'],
-                self.configuration['base_url'],
-                streamName[0],
-                streamName[1])
-            stream = Stream(url=stream_url, app=streamName[0], name=streamName[1], streamType='http_flv')
+            urls = []
+            app  = streamName[0]
+            name = streamName[1]
+
+            flv_url  = self.getFlvUrl (app,name)
+            rtmp_url = self.getRtmpUrl(app,name)
+
+            urls.append({'url': flv_url, 'type':'http_flv'})
+            urls.append({'url': rtmp_url,'type':'rtmp'})
+
+            stream = Stream(app=app, name=name, urls=urls)
             streams.append(stream.__dict__)
         return streams
+
+    def getFlvUrl(self,app_name,stream_name):
+        return '%s://%s/flv?app=%s&stream=%s' % (
+            self.configuration['web_proto'],
+            self.configuration['base_url'],
+            app_name,
+            stream_name)
+    def getRtmpUrl(self,app_name,stream_name):
+        return "rtmp://%s/%s/%s" % (
+            self.configuration['rtmp_base'],
+            app_name,
+            stream_name)
