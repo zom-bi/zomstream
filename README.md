@@ -24,7 +24,7 @@ this is a simple PSK based authentication module to provide authentication for s
 
 ### frontend
 this components provides the visible website containing an overview of the running streams, a REST API,  rtmp links for external players and a web based video player to watch the livestreams.
-There is more information about the API in API.md 
+There is more information about the API in [API.md](API.md) 
 
 ## How to use this
 We tested this with OBS and ffmpeg but any steaming source supporting rtmp should work just fine.
