@@ -24,7 +24,7 @@ i.e. There are two active streams in the `live` app, namely foo and bar. More in
 If you know the app and name of the stream you want to query, you can request more information,with a query like this:
 `$ curl http://localhost:8080/api/v0.2/streams/foo/`
 Response example:
-```
+```json
 {
 "streams":{
                 "app":"live",
