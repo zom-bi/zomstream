@@ -8,7 +8,7 @@
 <body>
 <header>
 	<h1>{{ configuration["pagetitle"] }}</h1>
-	<h2>{{ configuration["subtitle"] }}</h2>
+	<h2><a href="{{ url_for('frontend.setup_helper') }}">Setup Helper</a> | {{ configuration["subtitle"] }}</h2>
 </header>
 <main>
 {% if items == [] %}

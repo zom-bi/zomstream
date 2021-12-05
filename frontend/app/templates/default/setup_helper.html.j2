@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+        <title>{{ configuration['pagetitle'] }} - Stream Overview</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.default.css') }}">
+    </head>
+<body>
+<header>
+    <a href="{{ url_for('frontend.start') }}"><h1>{{ configuration["pagetitle"] }}</h1></a>
+	<h2>{{ configuration["subtitle"] }}</h2>
+</header>
+<main>
+    <article>
+    <h1>
+        Setup Helper
+    </h1>
+    <p>
+        This tool should help you with the setup of OBS for use with zomstream
+    </p>
+    <form id="settingsform">
+        <label for="application">selected application</label>
+        <select name="application" id="application">
+            <option value="live">Live - List stream on main page and don't record</option>
+            <option value="rec">Rec - List stream on main page and record it</option>
+            <option value="unlisted">Unlisted - Don't list stream on main page and don't record</option>
+            <option value="recunlisted">Recunlisted - Don't list stream on main page and record</option>
+        </select>
+
+        <label for="streamname">name for the stream</label>
+        <input type="text" name="streamname">
+
+        <label for="password">stream source password</label>
+        <input type="password" name="password">
+
+        <button type="button" id="showconfig">show config</button>
+    </form>
+    </article>
+
+    <article>
+        <h1>OBS Configuration</h1>
+        <p>go to Settings -> Stream to set up these parameters in OBS</p>
+        <table>
+          <tbody>
+            <tr>
+              <th>Parameter</th>
+              <th>Setting</th>
+            </tr>
+            <tr>
+                <td>Service</td>
+                <td><em class="url">Custom...</em></td>
+            </tr>
+            <tr>
+              <td>Server</td>
+              <td><em class="url" id="server_url"></em></td>
+            </tr>
+            <tr>
+              <td>Stream Key</td>
+              <td><em class="url" id="stream_key"></em></td>
+            </tr>
+            <tr>
+              <td>Use Authentication</td>
+              <td><em class="url">off</em></td>
+            </tr>
+          </tbody>
+        </table>
+    </article>
+</main>
+<script type="text/javascript">
+    function show_configuration() {
+        settingsform = document.getElementById('settingsform')
+
+        application = settingsform.elements['application'].value
+        streamname = settingsform.elements['streamname'].value
+        streampass = settingsform.elements['password'].value
+
+        server = 'rtmp://{{ configuration["rtmp_base"] }}/' + application
+        streamkey = streamname + '?pass=' + streampass
+
+        server_url_output = document.getElementById('server_url')
+        stream_key_output = document.getElementById('stream_key')
+
+        server_url_output.innerHTML = server
+        stream_key_output.innerHTML = streamkey
+    }
+
+    button = document.getElementById('showconfig')
+    showconfig.addEventListener('click', show_configuration)
+</script>
+</body>
+</html>
