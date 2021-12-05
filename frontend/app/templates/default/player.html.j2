@@ -15,6 +15,30 @@
     <video id="player" controls>
     </video>
 </div>
+<main>
+    <article>
+        <h1>URLs</h1>
+        <table>
+        <tbody>
+            <tr>
+                <th>Protocol</th>
+                <th>URL</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>RTMP</td>
+                <td><em class="url">rtmp://{{ configuration["rtmp_base"] }}/{{ appname }}/{{ streamname }}</em></td>
+                <td class="btn"><a href="rtmp://{{ configuration["rtmp_base"] }}/{{ appname }}/{{ streamname }}" class="btn btn-green">&#9654;<br/>RTMP</a></td>
+            </tr>
+            <tr>
+                <td>HTTP-FLV</td>
+                <td><em class="url">{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ appname }}&stream={{ streamname }}</em></td>
+                <td class="btn"><a href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ appname }}&stream={{ streamname }}" class="btn btn-green">&#9654;<br/>HTTP-FLV</a></td>
+            </tr>
+        </tbody>
+    </table>
+    </article>
+</main>
 <script src="{{ url_for('static', filename='flv.min.js') }}"></script>
 <script type="application/javascript">
     if (flvjs.isSupported()) {
