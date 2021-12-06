@@ -31,3 +31,12 @@ def show_player(appname, streamname):
         configuration=zomstream.configuration
         )
     return page
+
+@frontend.route("/setup_helper")
+def setup_helper():
+    template = '%s/setup_helper.html.j2' % zomstream.configuration['template_folder']
+    page = flask.render_template(
+        template,
+        configuration=zomstream.configuration
+        )
+    return page

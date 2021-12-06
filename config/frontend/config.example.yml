@@ -1,12 +1,12 @@
 # This is the title and Subtitle displayed on the Head of the Page
 pagetitle: Zomstream
-subtitle: v0.4
+subtitle: v0.5
 # the footer
 footer: "&copy; 2021 by the zom.bi Team"
 # the ip or hostname used to generate rtmp URLs
-rtmp_base: stream.zom.bi
+rtmp_base: 127.0.0.1
 # this is the base url used to generate internal links
-base_url: 127.0.0.1:5001
+base_url: 127.0.0.1:8080
 
 # the url to the nginx servers status page.
 # this is used for discovering the running streams

@@ -15,6 +15,61 @@
     <video id="player" controls>
     </video>
 </div>
+<main>
+    <article>
+        <h1>URLs</h1>
+        <table>
+        <tbody>
+            <tr>
+                <th>Protocol</th>
+                <th>URL</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>RTMP</td>
+                <td>
+                    <input 
+                        type="text" class="url" 
+                        id="rtmp" 
+                        value="rtmp://{{ configuration["rtmp_base"] }}/{{ appname }}/{{ streamname }}">
+                </td>
+                <td class="btn">
+                    <button class="btn" onclick="copy_to_clipboard('rtmp')">Copy</button>
+                </td>
+                <td class="btn">
+                    <a 
+                        style="width: 80px;"
+                        href="rtmp://{{ configuration["rtmp_base"] }}/{{ appname }}/{{ streamname }}" 
+                        class="btn btn-green">
+                            &#9654; RTMP
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>HTTP-FLV</td>
+                <td>
+                    <input 
+                        type="text" class="url" 
+                        id="flv"
+                        value="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ appname }}&stream={{ streamname }}">
+                </td>
+                <td class="btn">
+                    <button class="btn" onclick="copy_to_clipboard('flv')">Copy</button>
+                </td>
+                <td class="btn">
+                    <a 
+                        style="width: 80px;"
+                        href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ appname }}&stream={{ streamname }}"
+                        class="btn btn-green">
+                            &#9654; HTTP-FLV
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </article>
+</main>
 <script src="{{ url_for('static', filename='flv.min.js') }}"></script>
 <script type="application/javascript">
     if (flvjs.isSupported()) {
@@ -26,6 +81,12 @@
         flvPlayer.attachMediaElement(videoElement);
         flvPlayer.load();
         flvPlayer.play();
+    }
+    
+    function copy_to_clipboard(elem) {
+      textfield = document.getElementById(elem)
+      textfield.select()
+      navigator.clipboard.writeText(textfield.value)
     }
 </script>
 </body>
