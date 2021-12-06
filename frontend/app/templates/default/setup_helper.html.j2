@@ -28,12 +28,16 @@
         </select>
 
         <label for="streamname">name for the stream</label>
-        <input type="text" name="streamname">
+        <input type="text" pattern="[a-z0-9_]+" name="streamname"
+          placeholder="example: stream_name_23"
+          title="should only include lowercase letters, numbers and _ characters">
 
         <label for="password">stream source password</label>
-        <input type="password" name="password">
+        <input type="password" pattern="[A-Za-z0-9!]+" name="password"
+          placeholder="example: Passw0rd23"
+          title="should only include upper- and lowercase characters and numbers">
 
-        <button type="button" id="showconfig">show config</button>
+        <button type="button" style="width: 100%; margin-left: 0px;" class="btn-large" onclick="show_configuration()" id="showconfig">show config</button>
     </form>
     </article>
 
@@ -45,22 +49,26 @@
             <tr>
               <th>Parameter</th>
               <th>Setting</th>
+              <th class="btn"></th>
             </tr>
             <tr>
-                <td>Service</td>
-                <td><em class="url">Custom...</em></td>
+              <td>Service</td>
+              <td><input type="text" class="url" value="Custom..." readonly></td>
+              <td class="btn"></td>
             </tr>
             <tr>
               <td>Server</td>
-              <td><em class="url" id="server_url"></em></td>
+              <td><input type="text" class="url" id="server_url" readonly></em></td>
+              <td class="btn"><button class="btn" onclick="copy_to_clipboard('server_url')">Copy</button></td>
             </tr>
             <tr>
               <td>Stream Key</td>
-              <td><em class="url" id="stream_key"></em></td>
+              <td><input type="text" class="url" id="stream_key" readonly></em></td>
+              <td class="btn"><button class="btn" onclick="copy_to_clipboard('stream_key')">Copy</button></td>
             </tr>
             <tr>
               <td>Use Authentication</td>
-              <td><em class="url">off</em></td>
+              <td><input type="text" class="url" value="off" readonly></td>
             </tr>
           </tbody>
         </table>
@@ -74,52 +82,65 @@
             <tr>
               <th>Type</th>
               <th>URL</th>
+              <th class="btn"></th>
             </tr>
             <tr>
                 <td>Web Player</td>
-                <td><em class="url" id="play_web_url"></em></td>
+                <td><input type="text" class="url" id="play_web_url" readonly></td>
+                <td class="btn"><button class="btn" onclick="copy_to_clipboard('play_web_url')">Copy</button></td>
             </tr>
             <tr>
               <td>FLV HTTP</td>
-              <td><em class="url" id="play_flv_url"></em></td>
+              <td><input type="text" class="url" id="play_flv_url" readonly></td>
+              <td class="btn"><button class="btn" onclick="copy_to_clipboard('play_flv_url')">Copy</button></td>
             </tr>
             <tr>
               <td>RTMP</td>
-              <td><em class="url" id="play_rtmp_url"></em></td>
+              <td><input type="text" class="url" id="play_rtmp_url" readonly></td>
+              <td class="btn"><button class="btn" onclick="copy_to_clipboard('play_rtmp_url')">Copy</button></td>
             </tr>
           </tbody>
         </table>
     </article>
 </main>
 <script type="text/javascript">
+
+    function copy_to_clipboard(elem) {
+      textfield = document.getElementById(elem)
+      textfield.select()
+      navigator.clipboard.writeText(textfield.value)
+    }
+
     function show_configuration() {
         settingsform = document.getElementById('settingsform')
 
-        application = settingsform.elements['application'].value
-        streamname = settingsform.elements['streamname'].value
-        streampass = settingsform.elements['password'].value
+        if (!settingsform.checkValidity()){
+          settingsform.reportValidity();
+        }
+        else {
+          application = settingsform.elements['application'].value
+          streamname = settingsform.elements['streamname'].value
+          streampass = settingsform.elements['password'].value
 
-        server = 'rtmp://{{ configuration["rtmp_base"] }}/' + application
-        streamkey = streamname + '?pass=' + streampass
-        webplayer_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/player/' + application + '/' + streamname
-        flv_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/flv?app=' + application + '&stream=' + streamname
-        rtmp_url = 'rtmp://{{ configuration['rtmp_base'] }}/' + application + '/' + streamname
+          server = 'rtmp://{{ configuration["rtmp_base"] }}/' + application
+          streamkey = streamname + '?pass=' + streampass
+          webplayer_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/player/' + application + '/' + streamname
+          flv_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/flv?app=' + application + '&stream=' + streamname
+          rtmp_url = 'rtmp://{{ configuration['rtmp_base'] }}/' + application + '/' + streamname
 
-        server_url_output = document.getElementById('server_url')
-        stream_key_output = document.getElementById('stream_key')
-        webplayer_url_output = document.getElementById('play_web_url')
-        flv_url_output = document.getElementById('play_flv_url')
-        rtmp_url_output = document.getElementById('play_rtmp_url')
+          server_url_output = document.getElementById('server_url')
+          stream_key_output = document.getElementById('stream_key')
+          webplayer_url_output = document.getElementById('play_web_url')
+          flv_url_output = document.getElementById('play_flv_url')
+          rtmp_url_output = document.getElementById('play_rtmp_url')
 
-        server_url_output.innerHTML = server
-        stream_key_output.innerHTML = streamkey
-        webplayer_url_output.innerHTML = webplayer_url
-        flv_url_output.innerHTML = flv_url
-        rtmp_url_output.innerHTML = rtmp_url
+          server_url_output.value = server
+          stream_key_output.value = streamkey
+          webplayer_url_output.value = webplayer_url
+          flv_url_output.value = flv_url
+          rtmp_url_output.value = rtmp_url
+        }
     }
-
-    button = document.getElementById('showconfig')
-    showconfig.addEventListener('click', show_configuration)
 </script>
 </body>
 </html>
