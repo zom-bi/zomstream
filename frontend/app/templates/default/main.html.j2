@@ -8,7 +8,7 @@
 <body>
 <header>
 	<h1>{{ configuration["pagetitle"] }}</h1>
-	<h2>{{ configuration["subtitle"] }}</h2>
+	<h2><a href="{{ url_for('frontend.setup_helper') }}">Setup Helper</a> | {{ configuration["subtitle"] }}</h2>
 </header>
 <main>
 {% if items == [] %}
@@ -25,16 +25,45 @@
         <th>Protocol</th>
         <th>URL</th>
         <th></th>
+        <th></th>
       </tr>
       <tr>
         <td>RTMP</td>
-        <td><em class="url">rtmp://{{ configuration["rtmp_base"] }}/{{ item[0] }}/{{ item[1] }}</em></td>
-        <td class="btn"><a href="rtmp://{{ configuration["rtmp_base"] }}/{{ item[0] }}/{{ item[1] }}" class="btn btn-green">&#9654;<br/>RTMP</a></td>
+        <td>
+          <input 
+            type="text" class="url" 
+            id="rtmp_{{ item [0] }}_{{ item [1] }}" 
+            value="rtmp://{{ configuration["rtmp_base"] }}/{{ item[0] }}/{{ item[1] }}"
+            readonly>
+        </td>
+        <td class="btn">
+          <button class="btn" onclick="copy_to_clipboard('rtmp_{{ item [0] }}_{{ item [1] }}')">Copy</button>
+        </td>
+        <td class="btn">
+          <a
+            style="width: 80px;"
+            href="rtmp://{{ configuration["rtmp_base"] }}/{{ item[0] }}/{{ item[1] }}"
+            class="btn btn-green">&#9654; RTMP</a>
+        </td>
       </tr>
       <tr>
         <td>HTTP-FLV</td>
-	<td><em class="url">{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ item[0] }}&stream={{ item[1] }}</em></td>
-	<td class="btn"><a href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ item[0] }}&stream={{ item[1] }}" class="btn btn-green">&#9654;<br/>HTTP-FLV</a></td>
+	      <td>
+          <input 
+            type="text" class="url" 
+            id="flv_{{ item [0] }}_{{ item [1] }}" 
+            value="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ item[0] }}&stream={{ item[1] }}"
+            readonly>
+        </td>
+        <td class="btn">
+          <button class="btn" onclick="copy_to_clipboard('flv_{{ item [0] }}_{{ item [1] }}')">Copy</button>
+        </td>
+	      <td class="btn">
+          <a 
+            style="width: 80px;"
+            href="{{ configuration["web_proto"] }}://{{ configuration["base_url"] }}/flv?app={{ item[0] }}&stream={{ item[1] }}"
+            class="btn btn-green">&#9654; FLV</a>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -48,5 +77,12 @@
 <footer>
 {{ configuration["footer"] }}
 </footer>
+<script type="text/javascript">
+    function copy_to_clipboard(elem) {
+      textfield = document.getElementById(elem)
+      textfield.select()
+      navigator.clipboard.writeText(textfield.value)
+    }
+</script>
 </body>
 </html>
