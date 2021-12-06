@@ -15,7 +15,7 @@ services:
       - "./auth:/code"
     # set the PSK Password for the Auth Daemon here
     environment:
-      - password=ex4mple_p4ssw0rd!
+      - password=P4ssW0rD
 
   nginx-rtmp: # nginx rtmp server
     build: ./docker-nginx-rtmp/.
