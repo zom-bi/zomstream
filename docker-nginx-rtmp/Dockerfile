@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 MAINTAINER Chris <bsod@zom.bi>
 VOLUME ["/usr/local/nginx/conf"]
 EXPOSE 8080

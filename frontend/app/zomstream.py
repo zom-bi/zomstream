@@ -17,7 +17,7 @@ class Zomstream:
         # load configuration from config.yml file
         if pathlib.Path("config.yml").is_file():
             stream = open('config.yml', 'r')
-            self.configuration = yaml.load(stream)
+            self.configuration = yaml.safe_load(stream)
             stream.close()
         else:
             print('missing configuration.')
