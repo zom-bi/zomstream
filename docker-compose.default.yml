@@ -17,6 +17,13 @@ services:
     environment:
       - password=P4ssW0rD
 
+frontend: # container for python frontend
+  build: frontend/.
+  command: uwsgi uwsgi.ini
+  volumes:
+    - "./config/frontend/config.yml:/code/config.yml:ro"
+    - "./config/frontend/uwsgi.ini:/code/uwsgi.ini:ro"
+
   nginx-rtmp: # nginx rtmp server
     build: ./docker-nginx-rtmp/.
     ports:
@@ -38,10 +45,3 @@ services:
     #  - "traefik.frontend.rule=Host: stream.zom.bi"
     #  - "traefik.docker.network=proxy_web"
     #  - "traefik.port=8080"
-
-  frontend: # container for python frontend
-    build: frontend/.
-    command: uwsgi uwsgi.ini
-    volumes:
-      - "./config/frontend/config.yml:/code/config.yml:ro"
-      - "./config/frontend/uwsgi.ini:/code/uwsgi.ini:ro"
