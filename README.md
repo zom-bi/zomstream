@@ -27,7 +27,7 @@ this components provides the visible website containing an overview of the runni
 There is more information about the API in [API.md](API.md) 
 
 ## How to use this
-We tested this with OBS and ffmpeg but any steaming source supporting rtmp should work just fine.
+We tested this with OBS and ffmpeg but any streaming source supporting rtmp should work just fine.
 
 ### Setup instructions
 * clone the repository
