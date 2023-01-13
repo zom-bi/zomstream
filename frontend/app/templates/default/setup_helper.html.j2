@@ -28,7 +28,7 @@
         </select>
 
         <label for="streamname">name for the stream</label>
-        <input type="text" pattern="[a-z0-9_]+" name="streamname"
+        <input type="text" pattern="[a-z0-9_]+" required=true name="streamname"
           placeholder="example: stream_name_23"
           title="should only include lowercase letters, numbers and _ characters">
 
@@ -41,7 +41,7 @@
     </form>
     </article>
 
-    <article>
+    <article id="settings" >
         <h1>OBS Configuration</h1>
         <p>go to Settings -> Stream to set up these parameters in OBS</p>
         <table>
@@ -74,7 +74,7 @@
         </table>
     </article>
 
-    <article>
+    <article id="userurls">
         <h1>User URLs</h1>
         <p>these are the URLs where other people can access your stream</p>
         <table>
@@ -104,6 +104,8 @@
     </article>
 </main>
 <script type="text/javascript">
+    document.getElementById('settings').hidden = true;
+    document.getElementById('userurls').hidden = true;
 
     function copy_to_clipboard(elem) {
       textfield = document.getElementById(elem)
@@ -116,30 +118,30 @@
 
         if (!settingsform.checkValidity()){
           settingsform.reportValidity();
+          return;
         }
-        else {
-          application = settingsform.elements['application'].value
-          streamname = settingsform.elements['streamname'].value
-          streampass = settingsform.elements['password'].value
+        document.getElementById('settings').hidden = false;
+        document.getElementById('userurls').hidden = false;
+        application = settingsform.elements['application'].value
+        streamname = settingsform.elements['streamname'].value
+        streampass = settingsform.elements['password'].value
+        server = 'rtmp://{{ configuration["rtmp_base"] }}/' + application
+        streamkey = streamname + '?pass=' + streampass
+        webplayer_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/player/' + application + '/' + streamname
+        flv_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/flv?app=' + application + '&stream=' + streamname
+        rtmp_url = 'rtmp://{{ configuration['rtmp_base'] }}/' + application + '/' + streamname
 
-          server = 'rtmp://{{ configuration["rtmp_base"] }}/' + application
-          streamkey = streamname + '?pass=' + streampass
-          webplayer_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/player/' + application + '/' + streamname
-          flv_url = '{{ configuration['web_proto'] }}://{{ configuration['base_url'] }}/flv?app=' + application + '&stream=' + streamname
-          rtmp_url = 'rtmp://{{ configuration['rtmp_base'] }}/' + application + '/' + streamname
+        server_url_output = document.getElementById('server_url')
+        stream_key_output = document.getElementById('stream_key')
+        webplayer_url_output = document.getElementById('play_web_url')
+        flv_url_output = document.getElementById('play_flv_url')
+        rtmp_url_output = document.getElementById('play_rtmp_url')
 
-          server_url_output = document.getElementById('server_url')
-          stream_key_output = document.getElementById('stream_key')
-          webplayer_url_output = document.getElementById('play_web_url')
-          flv_url_output = document.getElementById('play_flv_url')
-          rtmp_url_output = document.getElementById('play_rtmp_url')
-
-          server_url_output.value = server
-          stream_key_output.value = streamkey
-          webplayer_url_output.value = webplayer_url
-          flv_url_output.value = flv_url
-          rtmp_url_output.value = rtmp_url
-        }
+        server_url_output.value = server
+        stream_key_output.value = streamkey
+        webplayer_url_output.value = webplayer_url
+        flv_url_output.value = flv_url
+        rtmp_url_output.value = rtmp_url
     }
 </script>
 </body>
