@@ -5,7 +5,7 @@ RUN pip --no-cache-dir install \
     pyyaml \
     uwsgi
 COPY ./app /code
-ADD https://github.com/bilibili/flv.js/releases/download/v1.5.0/flv.min.js /code/static/flv.min.js
+ADD https://github.com/bilibili/flv.js/releases/download/v1.6.2/flv.min.js /code/static/flv.min.js
 RUN chmod 644 /code/static/flv.min.js
 USER nobody
 WORKDIR /code
