@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 MAINTAINER Chris <bsod@zom.bi>
 VOLUME ["/usr/local/nginx/conf"]
 EXPOSE 8080
@@ -7,8 +7,8 @@ RUN \
       apt-get update &&\
       apt-get install -y gnupg && \
       apt-key add /tmp/nginx.key && \
-      echo "deb http://nginx.org/packages/debian/ buster nginx" >> /etc/apt/sources.list && \
-      echo "deb-src http://nginx.org/packages/debian/ buster nginx" >> /etc/apt/sources.list && \
+      echo "deb http://nginx.org/packages/debian/ bookworm nginx" >> /etc/apt/sources.list && \
+      echo "deb-src http://nginx.org/packages/debian/ bookworm nginx" >> /etc/apt/sources.list && \
       apt-get update &&\
       apt-get build-dep -y nginx && \
       apt-get install -y git
